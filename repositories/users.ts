@@ -1,13 +1,14 @@
 import dayjs from 'dayjs';
-import { User } from '../types/users';
-import { users } from '../database/models';
+import { IUser } from '../types/users';
+import { levels, users } from '../database/models';
 
-export const create = async (data: User) => {
+export const create = async (data: IUser) => {
     const now = dayjs(Date.now()).format('YYYY-MM-DD');
-    return await users.create({ ...data, levelId: 1, createdAt: now, currentLevelPoints: 0 });
+    const setLevel = await levels.find();
+    return await users.create({ ...data, createdAt: now, levelId: setLevel[0]._id, totalScore: 0 });
 }
 
-export const getById = async (id: number) => {
+export const getById = async (id: string) => {
     return await users.findOne({_id: id});
 }
 
