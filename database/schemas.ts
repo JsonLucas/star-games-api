@@ -8,7 +8,8 @@ export const usersSchema = new Schema({
     password: String,
     phone: String,
     levelId: String,
-    totalScore: Number
+    totalScore: Number,
+    currentLevelPoints: Number
 });
 
 export const addressesSchema = new Schema({
@@ -28,8 +29,9 @@ export const cardsSchema = new Schema({
 
 export const productsSchema = new Schema({
     name: String,
+    description: String,
     price: Number,
-    shipping: Number, //frete
+    shipping: Number,
     categoryId: String,
     stock: Number,
     image: String
@@ -42,6 +44,7 @@ export const categoriesSchema = new Schema({
 export const purchasesSchema = new Schema({
     userId: String,
     productId: Number,
+    payInformations: Object,
     createdAt: Date,
     status: String // pending, in progress, finished
 });
@@ -51,4 +54,9 @@ export const levelsSchema = new Schema({
     levelNumber: Number,
     features: Object,
     totalPoints: Number
+});
+
+export const favoritesSchema = new Schema({
+    userId: String,
+    productId: String
 });

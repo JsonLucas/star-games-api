@@ -1,9 +1,9 @@
 import { jwtSecret } from "./envConfig";
 import jwt from 'jsonwebtoken';
 
-export const tokenGeneration = (content: number) => {
+export const tokenGeneration = (content: string) => {
     if(!jwtSecret) throw { code: 500, error: 'bad environment variables setting' };
-    return jwt.sign(content.toString(), jwtSecret, {});
+    return jwt.sign(content, jwtSecret, {});
 }
 
 export const tokenVerification = (token: string) => {

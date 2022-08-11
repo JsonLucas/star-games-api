@@ -7,7 +7,8 @@ export interface IUser {
     password: string | Buffer,
     phone?: string,
     levelId?: string | number,
-    totalScore?: number
+    totalScore?: number,
+    currentLevelPoints?: number,
     createdAt?: Date
 };
 

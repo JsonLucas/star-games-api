@@ -5,11 +5,13 @@ import { levels, users } from '../database/models';
 export const create = async (data: IUser) => {
     const now = dayjs(Date.now()).format('YYYY-MM-DD');
     const setLevel = await levels.find();
-    return await users.create({ ...data, createdAt: now, levelId: setLevel[0]._id, totalScore: 0 });
+    const { name, totalPoints, features, levelNumber } = setLevel[0];
+    const { id } = await users.create({ ...data, createdAt: now, levelId: setLevel[0].id, totalScore: 0, currentLevelPoints: 0 });
+    return { id, level: { name, totalPoints, features, levelNumber }};
 }
 
 export const getById = async (id: string) => {
-    return await users.findOne({_id: id});
+    return await users.findOne({ id });
 }
 
 export const getByEmail = async (email: string) => {
@@ -30,3 +32,9 @@ export const login = async (login: string) => {
 
     return null;
 }
+
+export const getLevelById = async (id: string) => {
+    return await levels.findOne({ id });
+}
+
+//adicionar função pra favoritar produtos

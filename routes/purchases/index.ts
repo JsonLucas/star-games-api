@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { 
     createPurchaseController, 
     getPurchaseByIdController, 
+    getPurchaseHistoryController, 
     getPurchasesController
 } from '../../controllers/purchasesControllers';
 import authMiddleware from '../../middlewares/authMiddleware';
@@ -13,5 +14,6 @@ purchases.post('/purchase', authMiddleware, verificateProductsMiddleware, create
 purchases.get('/purchase/:purchaseId', authMiddleware, getPurchaseByIdController);
 purchases.put('/purchase/:purchaseId', authMiddleware); //modificar compra
 purchases.delete('/purchase/:purchaseId', authMiddleware); //deletar/cancelar compra compra
+purchases.get('/purchases/history', authMiddleware, getPurchaseHistoryController);
 
 export default purchases;

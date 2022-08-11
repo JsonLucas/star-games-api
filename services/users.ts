@@ -1,5 +1,11 @@
-import { create, getById, getByEmail, getByNickname, login } from '../repositories/users';
+import { 
+    create, 
+    getById, 
+    getByEmail, 
+    getByNickname, 
+    login, 
+    getLevelById 
+} from '../repositories/users';
 
-const usersServices = { create, getById, getByEmail, getByNickname, login };
-
+const usersServices = { create, getById, getByEmail, getByNickname, login, getLevelById };
 export default usersServices;

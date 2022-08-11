@@ -9,7 +9,7 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
 
     if(!userId) throw { code: 400 };
     const user = await usersServices.getById(userId.toString());
-    console.log(user);
+    if(!user) throw { code: 404, error: 'user not found.' };
     res.locals.userId = userId;
     next();
 }

@@ -3,7 +3,7 @@ import productsService from '../services/products';
 
 export const verificateProductsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const { body } = req;
-    const { products } = body;
+    const { products, payInformations } = body;
     if(!products) throw { code: 400 };
 
     let selectedProducts = [];
@@ -14,5 +14,6 @@ export const verificateProductsMiddleware = async (req: Request, res: Response, 
     }
 
     res.locals.products = selectedProducts;
+    res.locals.payInformations = payInformations;
     next();
 }

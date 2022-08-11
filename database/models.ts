@@ -3,6 +3,7 @@ import {
     addressesSchema, 
     cardsSchema, 
     categoriesSchema, 
+    favoritesSchema, 
     levelsSchema, 
     productsSchema, 
     purchasesSchema, 
@@ -16,3 +17,4 @@ export const products = model('products', productsSchema);
 export const categories = model('categories', categoriesSchema);
 export const purchases = model('purchases', purchasesSchema);
 export const levels = model('levels', levelsSchema);
+export const favorites = model('favorites', favoritesSchema);

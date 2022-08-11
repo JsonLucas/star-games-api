@@ -18,7 +18,12 @@ export const signInMiddleware = async (req: Request, res: Response, next: NextFu
 
     const user = await usersServices.login(body.login);
     if(!user) throw { code: 404, error: 'user not found' };
-
-    res.locals.data = { userId: user._id, hashPassword: user.password, password: body.password };
+    res.locals.data = { 
+        userId: user.id, 
+        hashPassword: user.password, 
+        password: body.password, 
+        levelId: user.levelId,
+        totalScore: user.currentLevelPoints
+    };
     next();
 }

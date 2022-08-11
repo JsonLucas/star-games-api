@@ -19,8 +19,15 @@ export const getPurchaseByIdController = async (req: Request, res: Response) => 
 }
 
 export const createPurchaseController = async (req: Request, res: Response) => {
-    const { userId, products } = res.locals;
-    const data = { userId, products };
+    const { userId, products, payInformations } = res.locals;
+    const data = { userId, products, payInformations };
     await purchasesServices.create(data);
     res.sendStatus(201);
+}
+
+export const getPurchaseHistoryController = async (req: Request, res: Response) => {
+    const { userId } = res.locals;
+    const purchases = await purchasesServices.getPurchases(userId);
+    console.log(purchases);
+    res.status(200).send(purchases);
 }
