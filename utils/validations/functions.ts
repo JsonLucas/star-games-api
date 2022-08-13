@@ -1,5 +1,6 @@
-import { Login, SignUp } from "../../types/users";
-import { signInSchema, signUpSchema } from "./schemas";
+import { Card } from "../../types/purchases";
+import { Address, Login, SignUp } from "../../types/users";
+import { addressSchema, cardSchema, signInSchema, signUpSchema } from "./schemas";
 
 export const validateSignUp = (data: SignUp) => {
     const { error } = signUpSchema.validate(data);
@@ -8,5 +9,15 @@ export const validateSignUp = (data: SignUp) => {
 
 export const validateSignIn = (data: Login) => {
     const { error } = signInSchema.validate(data);
+    if(error) throw { code: 422, error };
+}
+
+export const validateCard = (data: Card) => {
+    const { error } = cardSchema.validate(data);
+    if(error) throw { code: 422, error };
+}
+
+export const validateAddress = (data: Address) => {
+    const { error } = addressSchema.validate(data);
     if(error) throw { code: 422, error };
 }

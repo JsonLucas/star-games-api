@@ -1,5 +1,5 @@
 export interface IUser {
-    _id?: string | number,
+    _id?: string,
     name: string,
     nickname?: string,
     cpf: string,
@@ -12,5 +12,18 @@ export interface IUser {
     createdAt?: Date
 };
 
+export interface IAddresses {
+    _id?: string,
+    street: string,
+    number: string | number,
+    city: string,
+    state: string,
+    neighborhood: string,
+    complement?: string,
+    cep: string,
+    userId: string
+}
+
 export type Login = { login: string } & Pick<IUser, 'password'>;
-export type SignUp = Omit<IUser, 'id' | 'levelId' | 'createdAt'> & {confirmPassword: string};
+export type SignUp = Omit<IUser, '_id' | 'levelId' | 'createdAt'> & {confirmPassword: string};
+export type Address = Omit<IAddresses, '_id' | 'userId'>;

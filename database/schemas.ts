@@ -14,7 +14,11 @@ export const usersSchema = new Schema({
 
 export const addressesSchema = new Schema({
     street: String,
-    number: String,
+    number: Number,
+    city: String,
+    state: String,
+    neighborhood: String,
+    complement: String,
     cep: String,
     userId: String
 });

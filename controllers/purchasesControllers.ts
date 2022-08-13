@@ -28,6 +28,31 @@ export const createPurchaseController = async (req: Request, res: Response) => {
 export const getPurchaseHistoryController = async (req: Request, res: Response) => {
     const { userId } = res.locals;
     const purchases = await purchasesServices.getPurchases(userId);
-    console.log(purchases);
     res.status(200).send(purchases);
+}
+
+export const addCardDataController = async (req: Request, res: Response) => {
+    const { userId } =  res.locals;
+    const { body } = req;
+    await purchasesServices.createCard({...body, userId});
+    res.sendStatus(201);
+}
+
+export const addAddressDataController = async (req: Request, res: Response) => {
+    const { userId } =  res.locals;
+    const { body } = req;
+    await purchasesServices.createAddress({...body, userId});
+    res.sendStatus(201);
+}
+
+export const getCardsController = async (req: Request, res: Response) => {
+    const { userId } = res.locals;
+    const cards = await purchasesServices.getCardsByUserId(userId);
+    res.status(200).send(cards);
+}
+
+export const getAddressController = async (req: Request, res: Response) => {
+    const { userId } = res.locals;
+    const addresses = await purchasesServices.getAddressesByUserId(userId);
+    res.status(200).send(addresses);
 }

@@ -1,4 +1,22 @@
-import { getById, create, getPurchases } from "../repositories/purchases";
+import { 
+    getById, 
+    create, 
+    getPurchases, 
+    verificateCardByUserId, 
+    createCard,
+    createAddress, 
+    getCardsByUserId,
+    getAddressesByUserId
+} from "../repositories/purchases";
 
-const purchasesServices = { getPurchases, getById, create }; 
+const purchasesServices = { 
+    getPurchases, 
+    getById, 
+    create, 
+    verificateCardByUserId, 
+    createCard, 
+    createAddress, 
+    getCardsByUserId, 
+    getAddressesByUserId
+}; 
 export default purchasesServices;

@@ -36,5 +36,3 @@ export const login = async (login: string) => {
 export const getLevelById = async (id: string) => {
     return await levels.findOne({ id });
 }
-
-//adicionar função pra favoritar produtos

@@ -1,6 +1,9 @@
 import dayjs from "dayjs";
-import { products, purchases } from "../database/models";
-import { PurchaseData } from "../types/purchases";
+import { cards, products, purchases, addresses } from "../database/models";
+import { IAddress, ICard, PurchaseData } from "../types/purchases";
+
+type Card = Omit<ICard, '_id'>;
+type Address = Omit<IAddress, '_id'>;
 
 export const create = async (body: PurchaseData) => {
     let inserts = [];
@@ -33,3 +36,23 @@ export const getPurchases = async (userId: string) => {
 export const getById = async (_id: string, userId: string) => {
     return await purchases.findOne({ _id, userId });
 } 
+
+export const verificateCardByUserId = async (userId: string, cardNumber: string) => {
+    return await cards.findOne({ userId, number: cardNumber });
+}
+
+export const createCard = async (body: Card) => {
+    return await cards.create(body);
+}
+
+export const createAddress = async (body: Address) => {
+    return await addresses.create(body);
+}
+
+export const getAddressesByUserId = async (userId: string) => {
+    return await addresses.find({ userId });
+}
+
+export const getCardsByUserId = async (userId: string) => {
+    return await cards.find({ userId });
+}
