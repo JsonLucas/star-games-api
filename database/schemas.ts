@@ -48,7 +48,8 @@ export const categoriesSchema = new Schema({
 export const purchasesSchema = new Schema({
     userId: String,
     productId: Number,
-    payInformations: Object,
+    quantity: Number,
+    payInformations: Object, //{ type: string, cardId?: string, parcels?: number}
     createdAt: Date,
     status: String // pending, in progress, finished
 });

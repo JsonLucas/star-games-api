@@ -39,9 +39,8 @@ export const addCardDataController = async (req: Request, res: Response) => {
 }
 
 export const addAddressDataController = async (req: Request, res: Response) => {
-    const { userId } =  res.locals;
-    const { body } = req;
-    await purchasesServices.createAddress({...body, userId});
+    const { address } =  res.locals;
+    await purchasesServices.createAddress(address);
     res.sendStatus(201);
 }
 

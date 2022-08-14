@@ -4,6 +4,7 @@ import { IAddress, ICard, PurchaseData } from "../types/purchases";
 
 type Card = Omit<ICard, '_id'>;
 type Address = Omit<IAddress, '_id'>;
+type AddressVerification = Pick<IAddress, 'street' | 'number' | 'neighborhood' | 'city' | 'userId'>;
 
 export const create = async (body: PurchaseData) => {
     let inserts = [];
@@ -39,6 +40,10 @@ export const getById = async (_id: string, userId: string) => {
 
 export const verificateCardByUserId = async (userId: string, cardNumber: string) => {
     return await cards.findOne({ userId, number: cardNumber });
+}
+
+export const verificateUserAddress = async (body: AddressVerification) => {
+    return await addresses.findOne(body);
 }
 
 export const createCard = async (body: Card) => {

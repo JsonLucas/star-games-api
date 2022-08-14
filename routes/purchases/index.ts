@@ -16,8 +16,8 @@ const purchases = Router();
 purchases.get('/purchases', authMiddleware, getPurchasesController);
 purchases.post('/purchase', authMiddleware, verificateProductsMiddleware, createPurchaseController);
 purchases.get('/purchase/:purchaseId', authMiddleware, getPurchaseByIdController);
-purchases.put('/purchase/:purchaseId', authMiddleware); //modificar compra
-purchases.delete('/purchase/:purchaseId', authMiddleware); //deletar/cancelar compra compra
+purchases.put('/purchase/:purchaseId', authMiddleware); 
+purchases.delete('/purchase/:purchaseId', authMiddleware); 
 purchases.get('/purchases/history', authMiddleware, getPurchaseHistoryController);
 purchases.post('/purchases/payment', authMiddleware, verificateCardDataMiddleware, addCardDataController);
 purchases.post('/purchases/address', authMiddleware, verificateAddressMiddleware, addAddressDataController);
