@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
-import { cards, products, purchases, addresses } from "../database/models";
+import usersServices from "../services/users";
 import { IAddress, ICard, PurchaseData } from "../types/purchases";
+import { cards, products as tableProducts, purchases, addresses } from "../database/models";
 
 type Card = Omit<ICard, '_id'>;
 type Address = Omit<IAddress, '_id'>;
@@ -8,30 +9,23 @@ type AddressVerification = Pick<IAddress, 'street' | 'number' | 'neighborhood' |
 
 export const create = async (body: PurchaseData) => {
     let inserts = [];
-    const { userId, products, payInformations } = body;
-    const createdAt = dayjs(Date.now()).format('YYYY-MM-DD');
+    const { scorePoints, userData, products } = body;
     for(let i = 0; i < products.length; i++){
-        const creation = await purchases.create(
-            { 
-                userId, 
-                productId: products[i], 
-                status: 'pending', 
-                createdAt,
-                payInformations
-            });
-        inserts.push(creation);
+        const { productId, quantity } = products[i];
+        const insert = await purchases.create({
+            productId, quantity, userData
+        }); 
+        const product = await tableProducts.findOne({ id: productId });
+        if(!product?.stock) throw { code: 500 };
+        await tableProducts.findOneAndUpdate({ id: productId }, { stock: (product.stock - quantity) });
+        inserts.push(insert);
     }
+    await usersServices.updateUserScore(userData.userId, scorePoints);
     return inserts;
 }
 
-export const getPurchases = async (userId: string) => {
-    let productsData = [];
-    const listPurchases = await purchases.find({ userId });
-    for(let i = 0; i < listPurchases.length; i++){
-        const product = await products.find({ id: listPurchases[i].productId });
-        productsData.push(product);
-    }
-    return { listPurchases, productsData };
+export const getUserPurchases = async (userId: string) => {
+    return await purchases.find({ userId });
 }
 
 export const getById = async (_id: string, userId: string) => {

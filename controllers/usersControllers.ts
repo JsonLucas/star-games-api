@@ -26,5 +26,6 @@ export const signInController = async (req: Request, res: Response) => {
     if(!level) throw { code: 500 };
     const { totalPoints, name, levelNumber, features } = level;
     const levelData = { totalPoints, name, levelNumber, totalScore, features };
+    console.log(data, levelData);
     res.status(200).send({ token, levelData });
 }

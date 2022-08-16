@@ -1,13 +1,17 @@
 export interface IPurchase {
     _id?: string,
-    userId: string,
+    userData: {
+        userId: string,
+        addressId: string,
+        payInformations: {
+            method: string,
+            cardId?: string,
+        }
+    },
     productId: string,
+    quantity: number
     createdAt?: Date,
-    status?: string,
-    payInformations: {
-        method: string,
-        cardId?: string
-    }
+    status?: string
 }
 
 export interface ICard {
@@ -31,6 +35,14 @@ export interface IAddress {
     userId?: string
 }
 
+interface products {
+    productId: string,
+    quantity: number
+}
+
 export type Card = Omit<ICard, '_id' | 'userId'>;
 export type Address = Omit<IAddress, '_id' | 'userId'>;
-export type PurchaseData = { products: Array<string> } & Pick<IPurchase, 'userId' | 'payInformations'>;
+export type PurchaseData = {
+    scorePoints: number,
+    products: Array<products>
+} & Pick<IPurchase, 'userData'>;

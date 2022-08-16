@@ -5,18 +5,15 @@ import { validateAddress, validateCard } from '../utils/validations/functions';
 
 export const verificateProductsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const { body } = req;
-    const { products, payInformations } = body;
+    const { products } = body;
     if(!products) throw { code: 400 };
 
-    let selectedProducts = [];
-    for(let i = 0; i < body.products.length; i++){
-        const product = await productsService.getProductById(products[0]);
+    for(let i = 0; i < products.length; i++){
+        const product = await productsService.getProductById(products[0].productId);
         if(!product) throw { code: 404 };
-        selectedProducts.push(product._id);
     }
 
-    res.locals.products = selectedProducts;
-    res.locals.payInformations = payInformations;
+    res.locals.data = { ...body };
     next();
 }
 

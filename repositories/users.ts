@@ -34,5 +34,30 @@ export const login = async (login: string) => {
 }
 
 export const getLevelById = async (id: string) => {
-    return await levels.findOne({ id });
+    return await levels.findOne({ _id: id });
+}
+
+export const updateUserScore = async (userId: string, score: number) => {
+    const user = await getById(userId);
+    const level = await levels.findOne({ id: user?.levelId });
+    if((!user) || (!level)) throw { code: 500 };
+
+    const { totalPoints, levelNumber } = level;
+    const { currentLevelPoints, totalScore } = user;
+
+    const points = currentLevelPoints + score;
+    if(points > totalPoints){
+        const newLevel = await levels.findOne({ levelNumber: (levelNumber + 1) });
+        if(!newLevel) throw { code: 500 };
+        return await users.findOneAndUpdate({ _id: userId }, {
+            levelId: newLevel.id,
+            currentLevelPoints: (points - totalPoints),
+            totalScore: (totalScore + score)
+        });
+    } else {
+        return await users.findOneAndUpdate({ _id: userId }, { 
+            currentLevelPoints: points,
+            totalScore: totalScore + score
+        });
+    }
 }

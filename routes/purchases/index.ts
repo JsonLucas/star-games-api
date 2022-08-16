@@ -6,7 +6,6 @@ import {
     getAddressController, 
     getCardsController, 
     getPurchaseByIdController, 
-    getPurchaseHistoryController, 
     getPurchasesController
 } from '../../controllers/purchasesControllers';
 import authMiddleware from '../../middlewares/authMiddleware';
@@ -18,7 +17,6 @@ purchases.post('/purchase', authMiddleware, verificateProductsMiddleware, create
 purchases.get('/purchase/:purchaseId', authMiddleware, getPurchaseByIdController);
 purchases.put('/purchase/:purchaseId', authMiddleware); 
 purchases.delete('/purchase/:purchaseId', authMiddleware); 
-purchases.get('/purchases/history', authMiddleware, getPurchaseHistoryController);
 purchases.post('/purchases/payment', authMiddleware, verificateCardDataMiddleware, addCardDataController);
 purchases.post('/purchases/address', authMiddleware, verificateAddressMiddleware, addAddressDataController);
 purchases.get('/purchases/payment', authMiddleware, getCardsController);

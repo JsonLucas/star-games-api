@@ -3,7 +3,7 @@ import purchasesServices from '../services/purchases';
 
 export const getPurchasesController = async (req: Request, res: Response) => {
     const { userId } = res.locals;
-    const purchases = await purchasesServices.getPurchases(userId);
+    const purchases = await purchasesServices.getUserPurchases(userId);
     
     if(!purchases) throw { code: 404 };
     res.status(200).send(purchases);
@@ -19,16 +19,21 @@ export const getPurchaseByIdController = async (req: Request, res: Response) => 
 }
 
 export const createPurchaseController = async (req: Request, res: Response) => {
-    const { userId, products, payInformations } = res.locals;
-    const data = { userId, products, payInformations };
-    await purchasesServices.create(data);
+    const { userId, data } = res.locals;
+    const { addressId, scorePoints, cardId, payMethod, products } = data;
+    const purchase = { 
+        userData: { 
+            addressId, 
+            userId, 
+            payInformations: { 
+                method: payMethod, 
+                cardId 
+            } 
+        },
+        scorePoints, products 
+    }; 
+    await purchasesServices.create(purchase); 
     res.sendStatus(201);
-}
-
-export const getPurchaseHistoryController = async (req: Request, res: Response) => {
-    const { userId } = res.locals;
-    const purchases = await purchasesServices.getPurchases(userId);
-    res.status(200).send(purchases);
 }
 
 export const addCardDataController = async (req: Request, res: Response) => {

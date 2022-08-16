@@ -1,7 +1,7 @@
 import { 
     getById, 
     create, 
-    getPurchases, 
+    getUserPurchases, 
     verificateCardByUserId, 
     verificateUserAddress, 
     createCard,
@@ -11,7 +11,7 @@ import {
 } from "../repositories/purchases";
 
 const purchasesServices = { 
-    getPurchases, 
+    getUserPurchases, 
     getById, 
     create, 
     verificateCardByUserId, 
