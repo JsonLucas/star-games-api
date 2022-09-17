@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users { 
+	id Int @id @default(autoincrement())
+    name String
+    nickname String
+    cpf String
+    email String
+    password String
+    phone String
+    totalScore Int
+    currentLevelPoints Int
+    levelId Int
+	level levels @relation(fields: [levelId], references: [id])
+	purchase purchases[]
+	address addresses[]
+	card cards[]
+	favorite favorites[]
+}
+
+model addresses {
+	id Int @id @default(autoincrement())
+    street String
+    number Int
+    city String
+    state String
+    neighborhood String
+    complement String
+    cep String
+    userId Int
+	user users @relation(fields: [userId], references: [id])
+}
+
+model cards{
+	id Int @id @default(autoincrement())
+    name String
+    number String
+    cvv String
+    expirationDate DateTime
+    userId Int
+	user users @relation(fields: [userId], references: [id])
+}
+
+model products{
+	id Int @id @default(autoincrement())
+    name String
+    description String?
+    price Int
+    shipping Int
+    stock Int
+    image String
+    categoryId Int
+	category categories @relation(fields: [categoryId], references: [id])
+	purchase purchases[]
+	favorite favorites[]
+}
+
+model categories {
+	id Int @id @default(autoincrement())
+    name String
+	product products[]
+}
+
+model purchases {
+	id Int @id @default(autoincrement())
+    quantity Int
+    createdAt DateTime
+    status String 
+    productId Int
+	userId Int
+	product products @relation(fields: [productId], references: [id])
+	user users @relation(fields: [userId], references: [id])
+}
+
+model levels {
+	id Int @id @default(autoincrement())
+    name String
+    levelNumber Int
+    totalPoints Int
+	featuresId Int
+	features features @relation(fields: [featuresId], references: [id])
+	user users[]
+}
+
+model favorites {
+	id Int @id @default(autoincrement())
+    userId Int
+    productId Int
+	user users @relation(fields: [userId], references: [id])
+	product products @relation(fields: [productId], references: [id])
+}
+
+model features {
+	id Int @id @default(autoincrement())
+	features Json
+	level levels[]
+}
