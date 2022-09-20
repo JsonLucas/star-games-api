@@ -1,4 +1,4 @@
-import { getProducts, getProductById } from "../repositories/products";
+import { create, getProducts, getProductById, updateStock } from "../repositories/products";
 
-const productsService = { getProducts, getProductById };
+const productsService = { create, getProducts, getProductById, updateStock };
 export default productsService;

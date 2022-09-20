@@ -10,6 +10,6 @@ export const getProductByIdController = async (req: Request, res: Response) => {
     const { productId } = req.params;
     if(!productId) throw { code: 400 };
 
-    const product = await productsService.getProductById(productId.toString());
+    const product = await productsService.getProductById(Number(productId));
     res.status(200).send(product);
 }

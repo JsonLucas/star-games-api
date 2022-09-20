@@ -10,7 +10,8 @@
     "build": "tsc",
     "start": "node ./dist/server.js",
     "dev": "nodemon",
-    "test": "jest -i"
+    "test": "jest -i",
+	"dev:seed": "yarn prisma db push && yarn prisma generate client && ts-node ./prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.3.1",

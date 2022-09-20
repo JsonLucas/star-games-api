@@ -1,19 +1,20 @@
 export interface IUser {
-    _id?: string,
+    id?: number,
     name: string,
     nickname?: string,
     cpf: string,
     email: string,
-    password: string | Buffer,
+    password: string,
     phone?: string,
-    levelId?: string | number,
-    totalScore?: number,
-    currentLevelPoints?: number,
+    levelId: number,
+    totalScore: number,
+    currentLevelPoints: number,
     createdAt?: Date
+	updatedAt?: Date
 };
 
 export interface IAddresses {
-    _id?: string,
+    id?: number,
     street: string,
     number: string | number,
     city: string,
@@ -21,7 +22,9 @@ export interface IAddresses {
     neighborhood: string,
     complement?: string,
     cep: string,
-    userId: string
+    userId: number,
+    createdAt?: Date
+	updatedAt?: Date
 }
 
 export type Login = { login: string } & Pick<IUser, 'password'>;

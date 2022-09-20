@@ -1,35 +1,40 @@
-import dayjs from "dayjs";
-import usersServices from "../services/users";
 import prisma from '../database/database';
-import { IAddress, ICard, PurchaseData } from "../types/purchases";
+import { Address, Card, IAddress, ICard, PurchaseData } from "../types/purchases";
 
-type Card = Omit<ICard, '_id'>;
-type Address = Omit<IAddress, '_id'>;
 type AddressVerification = Pick<IAddress, 'street' | 'number' | 'neighborhood' | 'city' | 'userId'>;
 
 export const create = async (body: PurchaseData) => {
+	//return await prisma.purchases.create({ data: { ...body } });
 }
 
-export const getUserPurchases = async (userId: string) => {
+export const getUserPurchases = async (userId: number) => {
+	return await prisma.purchases.findMany({ where: { userId } });
 }
 
-export const getById = async (_id: string, userId: string) => {
+export const getById = async (id: number, userId: number) => {
+	return await prisma.purchases.findFirst({ where: { id, userId } });
 } 
 
-export const verificateCardByUserId = async (userId: string, cardNumber: string) => {
+export const verificateCardByUserId = async (userId: number, cardNumber: string) => {
+	return await prisma.cards.findFirst({ where: { userId, number: cardNumber }});
 }
 
 export const verificateUserAddress = async (body: AddressVerification) => {
+	return await prisma.addresses.findFirst({where: { ...body }});
 }
 
 export const createCard = async (body: Card) => {
+	return await prisma.cards.create({ data: { ...body } });
 }
 
 export const createAddress = async (body: Address) => {
+	return await prisma.addresses.create({ data: { ...body } });
 }
 
-export const getAddressesByUserId = async (userId: string) => {
+export const getAddressesByUserId = async (userId: number) => {
+	return await prisma.addresses.findMany({ where: { userId } });
 }
 
-export const getCardsByUserId = async (userId: string) => {
+export const getCardsByUserId = async (userId: number) => {
+	return await prisma.cards.findMany({ where: { userId } });
 }

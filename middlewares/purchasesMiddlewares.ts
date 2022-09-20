@@ -9,7 +9,7 @@ export const verificateProductsMiddleware = async (req: Request, res: Response, 
     if(!products) throw { code: 400 };
 
     for(let i = 0; i < products.length; i++){
-        const product = await productsService.getProductById(products[0].productId);
+        const product = await productsService.getProductById(products[i].productId);
         if(!product) throw { code: 404 };
     }
 
@@ -34,7 +34,8 @@ export const verificateAddressMiddleware = async (req: Request, res: Response, n
     
     const { number, street, city, neighborhood } = body;
     const address = await purchasesServices.verificateUserAddress({userId, number, street, city, neighborhood});
-    if(address) throw { code: 409, error: 'you already have this address registered' }
+    if(address) throw { code: 409, error: 'you already have this address registered' };
+	
     res.locals.address = { ...body, userId };
     next();
 }

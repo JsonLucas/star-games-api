@@ -1,10 +1,14 @@
 export interface IProducts {
-    _id?: string
+    id?: number
     name: string,
     description: string,
     price: number,
     shipping: number, //frete
-    categoryId: string,
+    categoryId: number,
     stock: number,
-    image: string
+    image: string,
+    createdAt?: Date
+	updatedAt?: Date
 }
+
+export type Product = Omit<IProducts, 'id' | 'createdAt' | 'updatedAt'>

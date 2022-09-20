@@ -4,7 +4,6 @@ import {
     getByEmail, 
     getByNickname, 
     login, 
-    getLevelById, 
     updateUserScore
 } from '../repositories/users';
 
@@ -14,7 +13,6 @@ const usersServices = {
     getByEmail, 
     getByNickname, 
     login, 
-    getLevelById, 
     updateUserScore 
 };
 export default usersServices;

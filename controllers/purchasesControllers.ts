@@ -14,7 +14,7 @@ export const getPurchaseByIdController = async (req: Request, res: Response) => 
     const { userId } = res.locals;
     if(!purchaseId) throw { code: 400 };
 
-    const purchase = await purchasesServices.getById(purchaseId, userId);
+    const purchase = await purchasesServices.getById(Number(purchaseId), userId);
     res.status(200).send(purchase);
 }
 

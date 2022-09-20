@@ -1,38 +1,43 @@
 export interface IPurchase {
-    _id?: string,
+    id?: number,
     userData: {
-        userId: string,
-        addressId: string,
+        userId: number,
+        addressId: number,
         payInformations: {
             method: string,
             cardId?: string,
         }
     },
-    productId: string,
-    quantity: number
-    createdAt?: Date,
-    status?: string
+    productId: number,
+    quantity: number,
+    status?: string,
+	createdAt?: Date,
+	updatedAt?: Date
 }
 
 export interface ICard {
-    _id?: string,
+    id?: number,
     name: string,
     number: string,
-    cvv: string | number,
+    cvv: number,
     expirationDate: Date,
-    userId?: string
+    userId: number,
+	createdAt?: Date,
+	updatedAt?: Date
 }
 
 export interface IAddress {
-    _id: string,
-    street: string,
+    id: number,
+	street: string,
     number: number,
     city: string,
     state: string,
     neighborhood: string,
     complement?: string,
     cep: string,
-    userId?: string
+    userId: number,
+	createdAt?: Date,
+	updatedAt?: Date
 }
 
 interface products {
@@ -40,8 +45,8 @@ interface products {
     quantity: number
 }
 
-export type Card = Omit<ICard, '_id' | 'userId'>;
-export type Address = Omit<IAddress, '_id' | 'userId'>;
+export type Card = Omit<ICard, 'id' | 'createdAt' | 'updatedAt'>;
+export type Address = Omit<IAddress, 'id' | 'createdAt' | 'updatedAt'>;
 export type PurchaseData = {
     scorePoints: number,
     products: Array<products>
