@@ -14,10 +14,7 @@ export const signUpController = async (req: Request, res: Response) => {
 		cpf, 
 		email, 
 		password: encryptedPassword, 
-		phone, 
-		levelId: 1, 
-		totalScore: 0,
-		currentLevelPoints: 0
+		phone
 	});
     
     if(!createUser) throw { code: 500 };
@@ -36,7 +33,7 @@ export const signInController = async (req: Request, res: Response) => {
     const level = await levelsServices.getById(levelId);
     if(!level) throw { code: 500 };
 	
-    const { totalPoints, name, features } = level;
-    const levelData = { totalPoints, name, totalScore, features };
-    res.status(200).send({ token, levelData });
+    const { totalPoints, name, features, id } = level;
+    const levelData = { totalPoints, name, totalScore, features, id };
+    res.status(200).send({ token, level: levelData });
 }

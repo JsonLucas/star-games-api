@@ -34,7 +34,8 @@ const levelsSeed = async () => {
 			totalPoints: 1500*(i+1), 
 			features: {
 				hasFreeShipping: i >= 1 ? true : false,
-				discount: i === 1 ? 0.05 : (i === 2) ? 0.1 : 0
+				discount: i === 1 ? 0.05 : (i === 2) ? 0.1 : 0,
+				shippingDiscount: i === 1 ? 0.05 : (i === 2) ? 0.1 : 0
 			} 
 		}
 		await levelsServices.create(body);

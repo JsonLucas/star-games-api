@@ -1,9 +1,17 @@
 import prisma from '../database/database';
-import { IUser } from '../types/users';
+import { CreateUser, IUser } from '../types/users';
 
-export const create = async (data: IUser) => {
+export const create = async (data: CreateUser) => {
 	const user = await prisma.users.create({ data: { ...data } });
-	const level = await prisma.levels.findUnique({ where: { id: user.levelId } });
+	const level = await prisma.levels.findUnique({ 
+		where: { id: user.levelId }, 
+		select: {
+			id: true,
+			name: true,
+			totalPoints: true,
+			features: true
+		} 
+	});
 	return { user, level };
 }
 

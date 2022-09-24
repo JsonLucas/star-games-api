@@ -28,5 +28,6 @@ export interface IAddresses {
 }
 
 export type Login = { login: string } & Pick<IUser, 'password'>;
-export type SignUp = Omit<IUser, '_id' | 'levelId' | 'createdAt'> & {confirmPassword: string};
-export type Address = Omit<IAddresses, '_id' | 'userId'>;
+export type SignUp = Omit<IUser, 'id' | 'levelId' | 'createdAt'> & {confirmPassword: string};
+export type Address = Omit<IAddresses, 'id' | 'userId'>;
+export type CreateUser = Omit<IUser, 'id' | 'levelId' | 'createdAt' | 'updatedAt' | 'totalScore' | 'currentLevelPoints'>;

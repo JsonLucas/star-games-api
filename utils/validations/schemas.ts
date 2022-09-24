@@ -5,11 +5,11 @@ import { Address, Login, SignUp } from '../../types/users';
 export const signUpSchema = joi.object<SignUp>({
     name: joi.string().required(),
     nickname: joi.string().min(4),
-    cpf: joi.number().max(11).required(),
+    cpf: joi.number().required(), //colocar regex depois
     email: joi.string().email().required(),
     password: joi.string().required(),
     confirmPassword: joi.ref('password'),
-    phone: joi.number()
+    //phone: joi.string().empty()
 });
 
 export const signInSchema = joi.object<Login>({

@@ -21,31 +21,23 @@ export const getPurchaseByIdController = async (req: Request, res: Response) => 
 export const createPurchaseController = async (req: Request, res: Response) => {
     const { userId, data } = res.locals;
     const { addressId, scorePoints, cardId, payMethod, products } = data;
-    const purchase = { 
-        userData: { 
-            addressId, 
-            userId, 
-            payInformations: { 
-                method: payMethod, 
-                cardId 
-            } 
-        },
-        scorePoints, products 
-    }; 
-    await purchasesServices.create(purchase); 
+    //await purchasesServices.create(purchase); 
+	console.log(data);
     res.sendStatus(201);
 }
 
 export const addCardDataController = async (req: Request, res: Response) => {
     const { userId } =  res.locals;
     const { body } = req;
-    await purchasesServices.createCard({...body, userId});
+	console.log(body);
+    //await purchasesServices.createCard({...body, userId});
     res.sendStatus(201);
 }
 
 export const addAddressDataController = async (req: Request, res: Response) => {
     const { address } =  res.locals;
-    await purchasesServices.createAddress(address);
+	console.log(address);
+    //await purchasesServices.createAddress(address);
     res.sendStatus(201);
 }
 
