@@ -4,6 +4,7 @@ import { Address, Card, IAddress, ICard, PurchaseData } from "../types/purchases
 type AddressVerification = Pick<IAddress, 'street' | 'number' | 'neighborhood' | 'city' | 'userId'>;
 
 export const create = async (body: PurchaseData) => {
+	console.log(body);
 	//return await prisma.purchases.create({ data: { ...body } });
 }
 

@@ -81,10 +81,10 @@ model categories {
 model purchases {
   id        Int       @id @default(autoincrement())
   quantity  Int
-  createdAt DateTime? @default(now())
-  status    String
+  status    String @default("in progress")
   productId Int
   userId    Int
+  createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   product   products  @relation(fields: [productId], references: [id])
   user      users     @relation(fields: [userId], references: [id])

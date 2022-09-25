@@ -21,23 +21,42 @@ export const getPurchaseByIdController = async (req: Request, res: Response) => 
 export const createPurchaseController = async (req: Request, res: Response) => {
     const { userId, data } = res.locals;
     const { addressId, scorePoints, cardId, payMethod, products } = data;
-    //await purchasesServices.create(purchase); 
-	console.log(data);
-    res.sendStatus(201);
+	const formatData = {
+		userData: { 
+			userId, 
+			addressId: Number(addressId), 
+			payInformations: {
+				method: payMethod,
+				cardId: cardId 
+			}
+		},
+		products,
+		scorePoints 
+	};
+    await purchasesServices.create(formatData); 
+	res.sendStatus(201);
 }
+
+// {
+// 	products: [ { productId: 2, quantity: 1 } ],
+// 	cardId: '1',
+// 	addressId: '1',
+// 	scorePoints: 478,
+// 	payMethod: 'card'
+// }
 
 export const addCardDataController = async (req: Request, res: Response) => {
     const { userId } =  res.locals;
     const { body } = req;
-	console.log(body);
-    //await purchasesServices.createCard({...body, userId});
+	const { name, number, cvv, expirationDate } = body;
+	const card = { name, number, cvv: Number(cvv), expirationDate: new Date(expirationDate) };
+    await purchasesServices.createCard({...card, userId});
     res.sendStatus(201);
 }
 
 export const addAddressDataController = async (req: Request, res: Response) => {
     const { address } =  res.locals;
-	console.log(address);
-    //await purchasesServices.createAddress(address);
+    await purchasesServices.createAddress(address);
     res.sendStatus(201);
 }
 

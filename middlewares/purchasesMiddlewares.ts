@@ -32,10 +32,17 @@ export const verificateAddressMiddleware = async (req: Request, res: Response, n
     const { body } = req;
     validateAddress(body);
     
-    const { number, street, city, neighborhood } = body;
-    const address = await purchasesServices.verificateUserAddress({userId, number, street, city, neighborhood});
+    const { number, street, city, neighborhood, state, complement, cep } = body;
+	const addressObj = { number: Number(number), street, city, neighborhood, state, complement, cep };
+    const address = await purchasesServices.verificateUserAddress({
+		userId: Number(userId), 
+		number: Number(number), 
+		street, 
+		city, 
+		neighborhood
+	});
     if(address) throw { code: 409, error: 'you already have this address registered' };
 	
-    res.locals.address = { ...body, userId };
+    res.locals.address = { ...addressObj, userId: Number(userId) };
     next();
 }
