@@ -1,11 +1,26 @@
 import prisma from '../database/database';
+import usersServices from '../services/users';
 import { Address, Card, IAddress, ICard, PurchaseData } from "../types/purchases";
 
 type AddressVerification = Pick<IAddress, 'street' | 'number' | 'neighborhood' | 'city' | 'userId'>;
 
 export const create = async (body: PurchaseData) => {
-	console.log(body);
-	//return await prisma.purchases.create({ data: { ...body } });
+	const { userData, scorePoints, products } = body;
+	const { userId } = userData;
+	for(let i in products){
+		await prisma.products.update({ data: { 
+				stock: products[i].updatedStock  
+			}, where: { 
+				id: Number(products[i].productId) 
+			} 
+		});
+		await prisma.purchases.create({ data: {
+			quantity: products[i].quantity,
+			productId: Number(products[i].productId), 
+			userId
+		} });
+	}
+	await usersServices.updateUserScore(userId, scorePoints);
 }
 
 export const getUserPurchases = async (userId: number) => {

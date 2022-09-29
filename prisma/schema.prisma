@@ -15,7 +15,7 @@ model users {
   email              String      @unique
   password           String
   phone              String?
-  totalScore         Int         @default(1)
+  totalScore         Int         @default(0)
   currentLevelPoints Int         @default(0)
   levelId            Int         @default(1)
   createdAt          DateTime?   @default(now())

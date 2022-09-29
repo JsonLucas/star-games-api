@@ -1,3 +1,5 @@
+import { IProducts } from "./products"
+
 export interface IPurchase {
     id?: number,
     userData: {
@@ -42,7 +44,8 @@ export interface IAddress {
 
 interface products {
     productId: string,
-    quantity: number
+    quantity: number,
+	updatedStock: number
 }
 
 export type Card = Omit<ICard, 'id' | 'createdAt' | 'updatedAt'>;
@@ -50,4 +53,4 @@ export type Address = Omit<IAddress, 'id' | 'createdAt' | 'updatedAt'>;
 export type PurchaseData = {
     scorePoints: number,
     products: Array<products>
-} & Pick<IPurchase, 'userData'>;
+} & Pick<IPurchase, 'userData'> ;

@@ -1,4 +1,5 @@
 import prisma from '../database/database';
+import levelsServices from '../services/levels';
 import { CreateUser, IUser } from '../types/users';
 
 export const create = async (data: CreateUser) => {
@@ -38,4 +39,26 @@ export const login = async (login: string) => {
 }
 
 export const updateUserScore = async (userId: number, score: number) => {
+	const { totalScore, currentLevelPoints, levelId } = await getById(userId);
+	const { totalPoints, id } = await levelsServices.getById(levelId);
+	const updatedTotalPoints = totalScore + score;
+	let update;
+	if((score + currentLevelPoints) > totalPoints){
+		update = { 
+			totalScore: updatedTotalPoints,
+			currentLevelPoints: ((score+currentLevelPoints) - totalPoints),
+			levelId: id+1
+		};
+	}else{
+		update = { 
+			totalScore: updatedTotalPoints,
+			currentLevelPoints: (score+currentLevelPoints)
+		};
+	}
+	await prisma.users.update({
+		where: { id: userId },
+		data: {
+			...update
+		}
+	});
 }
