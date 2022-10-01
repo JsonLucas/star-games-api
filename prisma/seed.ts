@@ -31,7 +31,7 @@ const levelsSeed = async () => {
 	for(let i = 0; i < 3; i++){
 		const body = { 
 			name: `Lord-${i+1}`, 
-			totalPoints: 1500*(i+1), 
+			totalPoints: 10000*(i+1), 
 			features: {
 				hasFreeShipping: i >= 1 ? true : false,
 				discount: i === 1 ? 0.05 : (i === 2) ? 0.1 : 0,

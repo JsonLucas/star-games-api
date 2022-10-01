@@ -7,7 +7,7 @@ type AddressVerification = Pick<IAddress, 'street' | 'number' | 'neighborhood' |
 export const create = async (body: PurchaseData) => {
 	const { userData, scorePoints, products } = body;
 	const { userId } = userData;
-	for(let i in products){
+	/*for(let i in products){
 		await prisma.products.update({ data: { 
 				stock: products[i].updatedStock  
 			}, where: { 
@@ -20,7 +20,8 @@ export const create = async (body: PurchaseData) => {
 			userId
 		} });
 	}
-	await usersServices.updateUserScore(userId, scorePoints);
+	await usersServices.updateUserScore(userId, scorePoints);*/
+	console.log(body);
 }
 
 export const getUserPurchases = async (userId: number) => {
