@@ -1,5 +1,5 @@
-import { Card } from "../../types/purchases";
-import { Address, Login, SignUp } from "../../types/users";
+import { Card } from "../../interfaces/purchases";
+import { Address, Login, SignUp } from "../../interfaces/users";
 import { addressSchema, cardSchema, signInSchema, signUpSchema } from "./schemas";
 
 export const validateSignUp = (data: SignUp) => {

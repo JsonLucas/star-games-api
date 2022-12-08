@@ -1,14 +1,14 @@
 {
   "name": "star-games-api",
   "version": "1.0.0",
-  "main": "server.ts",
+  "main": "./src/server.ts",
   "repository": "https://github.com/JsonLucas/star-games-api.git",
   "author": "JsonLucas",
   "license": "MIT",
   "private": false,
   "scripts": {
     "build": "tsc",
-    "start": "node ./dist/server.js",
+    "start": "node ./dist/src/server.js",
     "dev": "nodemon",
     "test": "jest -i",
 	"dev:seed": "yarn prisma db push && yarn prisma generate client && ts-node ./prisma/seed.ts"

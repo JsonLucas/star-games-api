@@ -1,6 +1,6 @@
 import prisma from '../database/database';
 import usersServices from '../services/users';
-import { Address, Card, IAddress, ICard, PurchaseData } from "../types/purchases";
+import { Address, Card, IAddress, ICard, PurchaseData } from "../interfaces/purchases";
 
 type AddressVerification = Pick<IAddress, 'street' | 'number' | 'neighborhood' | 'city' | 'userId'>;
 

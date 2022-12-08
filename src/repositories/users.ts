@@ -1,6 +1,6 @@
 import prisma from '../database/database';
 import levelsServices from '../services/levels';
-import { CreateUser, IUser } from '../types/users';
+import { CreateUser, IUser } from '../interfaces/entities/users';
 
 export const create = async (data: CreateUser) => {
 	const user = await prisma.users.create({ data: { ...data } });

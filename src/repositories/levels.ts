@@ -1,5 +1,5 @@
 import prisma from "../database/database";
-import { Level } from "../types/levels";
+import { Level } from "../interfaces/entities/levels";
 
 export const create = async (body: Level) => {
 	const { name, totalPoints, features } = body;

@@ -1,5 +1,5 @@
 import prisma from "../database/database";
-import { Product } from "../types/products";
+import { Product } from "../interfaces/products";
 
 export const create = async (body: Product) => {
 	return await prisma.products.create({ data: { ...body } });

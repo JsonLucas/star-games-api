@@ -1,7 +1,7 @@
-import productsService from "../services/products";
-import levelsServices from "../services/levels";
-import categoriesServices from "../services/categories";
-import prisma from "../database/database";
+import productsService from "../src/services/products";
+import levelsServices from "../src/services/levels";
+import categoriesServices from "../src/services/categories";
+import prisma from "../src/database/database";
 
 const categorySeed = async () => {
 	for(let i = 0; i < 3; i++){

@@ -2,6 +2,10 @@ import usersServices from "../services/users";
 import { validateSignIn, validateSignUp } from "../utils/validations/functions";
 import { Request, Response, NextFunction } from "express";
 
+export const userExistsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+	const { userId } = res.locals;
+}
+
 export const signUpMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const { body } = req;
     validateSignUp(body);
