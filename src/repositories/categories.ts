@@ -1,17 +1,21 @@
 import prisma from "../database/database";
+import { ICategory } from "../interfaces/entities/products";
+import { ICategoryRepository } from "../interfaces/use-cases/categories";
 
-export const create = async (name: string) => {
-	return await prisma.categories.create({ data: { name } });
-}
+export class CategoryRepository implements ICategoryRepository {
+  async create(name: string): Promise<void> {
+    await prisma.categories.create({ data: { name } });
+  }
 
-export const getAll = async () => {
-	return await prisma.categories.findMany();
-}
+  async getAll(): Promise<Array<ICategory> | null> {
+    return await prisma.categories.findMany();
+  }
 
-export const getById = async (id: number) => {
-	return await prisma.categories.findUnique({ where: { id } });
-}
+  async getById(id: number): Promise<ICategory> {
+    return await prisma.categories.findUnique({ where: { id } });
+  }
 
-export const getByName = async (name: string) => {
-	return await prisma.categories.findUnique({ where: { name } });
+  async getByName(name: string): Promise<ICategory> {
+    return await prisma.categories.findUnique({ where: { name } });
+  }
 }

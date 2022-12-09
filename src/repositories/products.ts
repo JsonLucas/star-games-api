@@ -1,18 +1,25 @@
 import prisma from "../database/database";
-import { Product } from "../interfaces/products";
+import { IProducts, Product } from "../interfaces/entities/products";
+import { IProductRepository } from "../interfaces/use-cases/products";
 
-export const create = async (body: Product) => {
-	return await prisma.products.create({ data: { ...body } });
-}
+export class ProductRepository implements IProductRepository {
+  async create(body: Product): Promise<void> {
+    await prisma.products.create({ data: { ...body } });
+  }
 
-export const getProducts = async () => {
-	return await prisma.products.findMany();
-}
+  async getProducts(): Promise<Array<IProducts> | null> {
+    return await prisma.products.findMany();
+  }
 
-export const getProductById = async (id: number) => {
-	return await prisma.products.findUnique({ where: { id } });
-}
+  async getProductById(id: number): Promise<IProducts | null> {
+    return await prisma.products.findUnique({ where: { id } });
+  }
 
-export const updateStock = async (id: number, quantity: number) => {
-	return await prisma.products.update({ where: { id }, data: { stock: quantity } });
+  async getProductByName(name: string): Promise<IProducts | null> {
+    return await prisma.products.findFirst({ where: { name } });
+  }
+
+  async updateStock(id: number, quantity: number): Promise<void> {
+    await prisma.products.update({ where: { id }, data: { stock: quantity } });
+  }
 }

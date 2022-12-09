@@ -5,9 +5,11 @@ export const refreshTokenMiddleware = async (req: Request, res: Response, next: 
 	const { body } = req;
 	if(body) throw { code: 403 };
 
+	const { refreshToken } = body;
 	const token = new Token();
-	const { payload } = token.verificate(body.refreshToken);
+	const verification = token.verificate(refreshToken);
+	console.log(verification);
 	
-	res.locals.userId = payload;
+	res.locals.refreshToken = refreshToken;
 	next();
 }

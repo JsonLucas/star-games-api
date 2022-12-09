@@ -50,7 +50,7 @@ model cards {
   userId         Int
   createdAt      DateTime? @default(now())
   updatedAt      DateTime? @updatedAt
-  cvv            Int       @unique
+  cvv            Int       
   user           users     @relation(fields: [userId], references: [id])
 }
 

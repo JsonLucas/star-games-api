@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import usersServices from '../services/users';
+import { UserRepository } from '../repositories/users';
+import { UserServices } from '../services/users';
 import { tokenVerification } from '../utils/token';
 
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
@@ -8,7 +9,8 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
     const userId = tokenVerification(authorization);
 
     if(!userId) throw { code: 400 };
-    const user = await usersServices.getById(Number(userId));
+	const userServices = new UserServices(new UserRepository());
+    const user = await userServices.getById(Number(userId));
 
 	if(!user) throw { code: 404, error: 'user not found.' };
     res.locals.userId = Number(userId);

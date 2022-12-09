@@ -2,14 +2,7 @@ import { IProducts } from "./products"
 
 export interface IPurchase {
     id?: number,
-    userData: {
-        userId: number,
-        addressId: number,
-        payInformations: {
-            method: string,
-            cardId?: string,
-        }
-    },
+	userId: number,
     productId: number,
     quantity: number,
     status?: string,
@@ -28,20 +21,6 @@ export interface ICard {
 	updatedAt?: Date
 }
 
-export interface IAddress {
-    id: number,
-	street: string,
-    number: number,
-    city: string,
-    state: string,
-    neighborhood: string,
-    complement?: string,
-    cep: string,
-    userId: number,
-	createdAt?: Date,
-	updatedAt?: Date
-}
-
 interface products {
     productId: string,
     quantity: number,
@@ -49,8 +28,3 @@ interface products {
 }
 
 export type Card = Omit<ICard, 'id' | 'createdAt' | 'updatedAt'>;
-export type Address = Omit<IAddress, 'id' | 'createdAt' | 'updatedAt'>;
-export type PurchaseData = {
-    scorePoints: number,
-    products: Array<products>
-} & Pick<IPurchase, 'userData'> ;

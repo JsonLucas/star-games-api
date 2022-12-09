@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
-import purchasesServices from '../services/purchases';
+import { PurchaseRepository } from '../repositories/purchases';
+import { PurchaseServices } from '../services/purchases';
 
 export const getPurchasesController = async (req: Request, res: Response) => {
     const { userId } = res.locals;
-    const purchases = await purchasesServices.getUserPurchases(userId);
+	const purchaseServices = new PurchaseServices(new PurchaseRepository());
+    const purchases = await purchaseServices.getUserPurchases(userId);
     
     if(!purchases) throw { code: 404 };
     res.status(200).send(purchases);
@@ -14,7 +16,8 @@ export const getPurchaseByIdController = async (req: Request, res: Response) => 
     const { userId } = res.locals;
     if(!purchaseId) throw { code: 400 };
 
-    const purchase = await purchasesServices.getById(Number(purchaseId), userId);
+	const purchaseServices = new PurchaseServices(new PurchaseRepository());
+    const purchase = await purchaseServices.getById(Number(purchaseId), userId);
     res.status(200).send(purchase);
 }
 
@@ -33,7 +36,8 @@ export const createPurchaseController = async (req: Request, res: Response) => {
 		products,
 		scorePoints 
 	};
-    await purchasesServices.create(formatData); 
+	const purchaseServices = new PurchaseServices(new PurchaseRepository());
+    await purchaseServices.create(formatData); 
 	res.sendStatus(201);
 }
 
@@ -50,24 +54,28 @@ export const addCardDataController = async (req: Request, res: Response) => {
     const { body } = req;
 	const { name, number, cvv, expirationDate } = body;
 	const card = { name, number, cvv: Number(cvv), expirationDate: new Date(expirationDate) };
-    await purchasesServices.createCard({...card, userId});
+	const purchaseServices = new PurchaseServices(new PurchaseRepository());
+    await purchaseServices.createCard({...card, userId});
     res.sendStatus(201);
 }
 
 export const addAddressDataController = async (req: Request, res: Response) => {
     const { address } =  res.locals;
-    await purchasesServices.createAddress(address);
+	const purchaseServices = new PurchaseServices(new PurchaseRepository());
+    await purchaseServices.createAddress(address);
     res.sendStatus(201);
 }
 
 export const getCardsController = async (req: Request, res: Response) => {
     const { userId } = res.locals;
-    const cards = await purchasesServices.getCardsByUserId(userId);
+	const purchaseServices = new PurchaseServices(new PurchaseRepository());
+    const cards = await purchaseServices.getCardsByUserId(userId);
     res.status(200).send(cards);
 }
 
 export const getAddressController = async (req: Request, res: Response) => {
     const { userId } = res.locals;
-    const addresses = await purchasesServices.getAddressesByUserId(userId);
+	const purchaseServices = new PurchaseServices(new PurchaseRepository());
+    const addresses = await purchaseServices.getAddressesByUserId(userId);
     res.status(200).send(addresses);
 }

@@ -1,16 +1,21 @@
 import prisma from "../database/database";
-import { Level } from "../interfaces/entities/levels";
+import { ILevel, Level } from "../interfaces/entities/levels";
+import { ILevelRepository } from "../interfaces/use-cases/levels";
 
-export const create = async (body: Level) => {
-	const { name, totalPoints, features } = body;
-	const jsonFeatures = JSON.stringify(features);
-	return await prisma.levels.create({ data: { name, totalPoints, features: jsonFeatures } });
-}
+export class LevelRepository implements ILevelRepository {
+  async create(body: Level): Promise<ILevel> | null {
+    const { name, totalPoints, features } = body;
+    const jsonFeatures = JSON.stringify(features);
+    return await prisma.levels.create({
+      data: { name, totalPoints, features: jsonFeatures },
+    });
+  }
 
-export const getById = async (id: number) => {
-	return await prisma.levels.findUnique({ where: { id }});
-}
-
-export const getByName = async (name: string) => {
-	return await prisma.levels.findUnique({ where:{ name } });
+  async getById(id: number): Promise<ILevel> | null {
+    return await prisma.levels.findUnique({ where: { id } });
+  }
+  
+  async getByName(name: string): Promise<ILevel> | null {
+    return await prisma.levels.findUnique({ where: { name } });
+  }
 }
