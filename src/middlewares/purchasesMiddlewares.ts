@@ -3,7 +3,8 @@ import { ProductRepository } from '../repositories/products';
 import { PurchaseRepository } from '../repositories/purchases';
 import { ProductServices } from '../services/products';
 import { PurchaseServices } from '../services/purchases';
-import { validateAddress, validateCard } from '../utils/validations/functions';
+import { addressSchema, cardSchema } from '../utils/schemas';
+import { Validator } from '../utils/validator';
 
 export const verificateProductsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const { body } = req;
@@ -23,7 +24,8 @@ export const verificateProductsMiddleware = async (req: Request, res: Response, 
 export const verificateCardDataMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = res.locals;
     const { body } = req;
-    validateCard(body);
+	const validator = new Validator();
+    await validator.validate(body, cardSchema);
 
 	const purchaseServices = new PurchaseServices(new PurchaseRepository());
     const card = await purchaseServices.verificateCardByUserId(userId, body.number);
@@ -34,7 +36,8 @@ export const verificateCardDataMiddleware = async (req: Request, res: Response, 
 export const verificateAddressMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = res.locals;
     const { body } = req;
-    validateAddress(body);
+	const validator = new Validator();
+	await validator.validate(body, addressSchema);
     
     const { number, street, city, neighborhood, state, complement, cep } = body;
 	const addressObj = { number: Number(number), street, city, neighborhood, state, complement, cep };

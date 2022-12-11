@@ -7,7 +7,7 @@ export const refreshTokenMiddleware = async (req: Request, res: Response, next: 
 
 	const { refreshToken } = body;
 	const token = new Token();
-	const verification = token.verificate(refreshToken);
+	const verification = token.verificate(refreshToken, 'refresh');
 	console.log(verification);
 	
 	res.locals.refreshToken = refreshToken;

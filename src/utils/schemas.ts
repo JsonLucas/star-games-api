@@ -1,6 +1,6 @@
 import joi from 'joi';
-import { Card } from '../../interfaces/purchases';
-import { Address, Login, SignUp } from '../../interfaces/users';
+import { Card } from '../interfaces/entities/purchases';
+import { Address, Login, SignUp } from '../interfaces/entities/users';
 
 export const signUpSchema = joi.object<SignUp>({
     name: joi.string().required(),

@@ -1,4 +1,4 @@
-import { CreateUser, IUser, UserInfo } from "../interfaces/entities/users";
+import { CreateUser, IUser, UserData, UserInfo } from "../interfaces/entities/users";
 import { IUserServices } from "../interfaces/use-cases/users";
 import { LevelRepository } from "../repositories/levels";
 import { UserRepository } from "../repositories/users";
@@ -33,6 +33,13 @@ export class UserServices implements IUserServices {
 	if(!user) throw { code: 404, error: 'user not found.' };
 
 	return user;
+  }
+
+  async getInformation(userId: number): Promise<UserData>{
+	const user = await this.userRepository.getById(userId);
+	if(!user) throw { code: 404, error: 'user not found.' };
+
+	return await this.userRepository.getInformation(userId);
   }
 
   async login(login: string): Promise<IUser> {

@@ -5,5 +5,6 @@ export const refreshTokenController = (req: Request, res: Response) => {
 	const { refreshToken } = res.locals;
 	console.log(refreshToken);
 	const token = new Token();
-	res.sendStatus(200);
+	const accessToken = token.generateAccessToken(refreshToken);
+	res.status(200).send({ refreshToken, accessToken });
 }

@@ -1,9 +1,16 @@
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
-export const encrypt = (content: string) => {
-    return bcrypt.hashSync(content, 10).toString();
+interface ICrypt {
+  encrypt: (content: string) => string;
+  compare: (content: string, hash: string) => boolean;
 }
 
-export const decrypt = (content: string, hash: string) => {
-    return bcrypt.compareSync(content, hash); 
+export class Crypt implements ICrypt {
+  encrypt(content: string): string {
+    return bcrypt.hashSync(content, 10).toString();
+  }
+
+  compare(content: string, hash: string): boolean {
+    return bcrypt.compareSync(content, hash);
+  }
 }
