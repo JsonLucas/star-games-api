@@ -21,11 +21,11 @@ export const signUpController = async (req: Request, res: Response) => {
 		phone
 	});
     
-    const { user, level } = createUser;
+    const { id } = createUser;
 	const token = new Token();
-    const refreshToken = token.generateRefreshToken(user.id);
+    const refreshToken = token.generateRefreshToken(id);
 	const accessToken = token.generateAccessToken(refreshToken);
-    res.status(201).send({ refreshToken, accessToken, level });
+    res.status(201).send({ refreshToken, accessToken });
 }
 
 export const signInController = async (req: Request, res: Response) => {

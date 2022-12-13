@@ -9,7 +9,7 @@ import {
 import { IUserRepository } from "../interfaces/use-cases/users";
 
 export class UserRepository implements IUserRepository {
-  async create(data: CreateUser): Promise<UserInfo> | null {
+  async create(data: CreateUser): Promise<IUser> | null {
     const user = await prisma.users.create({ data: { ...data } });
     const level = await prisma.levels.findUnique({
       where: { id: user.levelId },
@@ -20,7 +20,7 @@ export class UserRepository implements IUserRepository {
         features: true,
       },
     });
-    return { user, level };
+    return user;
   }
 
   async getById(id: number): Promise<IUser> | null {

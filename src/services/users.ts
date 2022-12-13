@@ -7,7 +7,7 @@ export class UserServices implements IUserServices {
   private readonly levelRepository: LevelRepository;
   constructor(private readonly userRepository: UserRepository) {}
 
-  async create(data: CreateUser): Promise<UserInfo> {
+  async create(data: CreateUser): Promise<IUser> {
 	const verificateUser = await this.userRepository.getByEmail(data.email);
 	if(verificateUser) throw { code: 409, error: 'this user already exists.' };
 

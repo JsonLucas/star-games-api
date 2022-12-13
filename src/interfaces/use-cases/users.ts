@@ -1,7 +1,7 @@
 import { CreateUser, IUser, UpdateScore, UserData, UserInfo } from "../entities/users";
 
 export interface IUserRepository {
-  create: (data: CreateUser) => Promise<UserInfo>;
+  create: (data: CreateUser) => Promise<IUser | null>;
   getById: (id: number) => Promise<IUser> | null;
   getByEmail: (email: string) => Promise<IUser> | null;
   getByNickname: (nickname: string) => Promise<IUser> | null;
@@ -10,7 +10,7 @@ export interface IUserRepository {
 }
 
 export interface IUserServices {
-  create: (data: CreateUser) => Promise<UserInfo>;
+  create: (data: CreateUser) => Promise<IUser>;
   getById: (id: number) => Promise<IUser>;
   getByEmail: (email: string) => Promise<IUser>;
   getByNickname: (nickname: string) => Promise<IUser>;
