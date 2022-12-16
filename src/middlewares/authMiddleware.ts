@@ -11,7 +11,7 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
 	const token = new Token();
     const { userId } = token.verificate(auth[1], 'access');
 
-    if(!userId) throw { code: 400 };
+    if(!userId) throw { code: 403 };
     res.locals.userId = Number(userId);
     next();
 }

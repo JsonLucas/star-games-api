@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { tokenRouter } from './token';
 import categoryRouter from './categories';
 import levelRouter from './levels';
 import products from './products';
@@ -11,5 +12,6 @@ router.use(products);
 router.use(purchases);
 router.use(categoryRouter);
 router.use(levelRouter);
+router.use(tokenRouter);
 
 export default router;

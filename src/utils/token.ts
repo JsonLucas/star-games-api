@@ -22,10 +22,10 @@ export class Token implements IToken {
 	  return verification.userId;
     } catch (e: any) {
       console.log(e);
-      if (type === "access") {
+      if (type === "refresh") {
         return this.generateAccessToken(auth);
       }
-      throw { code: 403, error: e };
+	  throw { code: 400, error: e };
     }
   }
 
