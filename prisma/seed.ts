@@ -53,8 +53,10 @@ const levelsSeed = async () => {
 	await prisma.$executeRaw`TRUNCATE TABLE products RESTART IDENTITY CASCADE;`;
 	await prisma.$executeRaw`TRUNCATE TABLE categories RESTART IDENTITY CASCADE;`;
 	await prisma.$executeRaw`TRUNCATE TABLE levels RESTART IDENTITY CASCADE;`;
-	//restart and seed database 
+
 	await categorySeed();
 	await productSeed();
 	await levelsSeed();
+
+	console.log('data generated.');
 })();

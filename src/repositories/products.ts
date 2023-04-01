@@ -1,5 +1,5 @@
 import prisma from "../database/database";
-import { IProducts, Product } from "../interfaces/entities/products";
+import { IFavorites, IProducts, Product } from "../interfaces/entities/products";
 import { IProductRepository } from "../interfaces/use-cases/products";
 
 export class ProductRepository implements IProductRepository {
@@ -12,7 +12,9 @@ export class ProductRepository implements IProductRepository {
   }
 
   async getProductById(id: number): Promise<IProducts | null> {
-    return await prisma.products.findUnique({ where: { id } });
+	console.log(id);
+    // return await prisma.products.findUnique({ where: { id } });
+	return {} as IProducts;
   }
 
   async getProductByName(name: string): Promise<IProducts | null> {
@@ -21,5 +23,14 @@ export class ProductRepository implements IProductRepository {
 
   async updateStock(id: number, quantity: number): Promise<void> {
     await prisma.products.update({ where: { id }, data: { stock: quantity } });
+  }
+
+  async createFavorite(productId: number, userId: number): Promise<boolean> {
+    const favorite = await prisma.favorites.create({ data: { userId, productId } });
+    return true;
+  }
+
+  async getUserFavorites(userId: number): Promise<Array<IFavorites> | null> {
+    return await prisma.favorites.findMany({ where: { userId } });
   }
 }

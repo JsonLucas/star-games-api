@@ -18,4 +18,13 @@ export interface ICategory{
   updatedAt?: Date
 }
 
-export type Product = Omit<IProducts, 'id' | 'createdAt' | 'updatedAt'>
+export interface IFavorites {
+  id: number,
+  userId: number,
+  productId: number,
+  createdAt?: Date,
+  updatedAt?: Date
+}
+
+export type Product = Omit<IProducts, 'id' | 'createdAt' | 'updatedAt'>;
+export type FullProduct = IProducts & { favorite?: boolean };
